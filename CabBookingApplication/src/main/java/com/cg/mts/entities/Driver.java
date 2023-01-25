@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Driver extends AbstractUser {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int driverId;
 	private String licenseNo;
 

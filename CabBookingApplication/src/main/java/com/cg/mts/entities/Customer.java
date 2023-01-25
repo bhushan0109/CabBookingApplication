@@ -8,7 +8,7 @@ import javax.persistence.Id;
 @Entity
 public class Customer extends AbstractUser {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int customerId;
 
 	public int getCustomerId() {

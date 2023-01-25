@@ -31,7 +31,8 @@ public class ITripBookingServiceImpl implements ITripBookingService {
 
 	@Override
 	public TripBooking updateTripBooking(TripBooking tripBooking) {
-		return tbDao.saveAndFlush(tripBooking);
+		 TripBooking save = tbDao.saveAndFlush(tripBooking);
+		return save;
 	}
 
 	/**
