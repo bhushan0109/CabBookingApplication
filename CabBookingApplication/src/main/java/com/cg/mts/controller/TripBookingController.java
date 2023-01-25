@@ -89,7 +89,7 @@ public class TripBookingController {
 	 * @param tripBookingId
 	 * @return List<TripBooking>
 	 */
-	@GetMapping("/tripbookingId")
+	@GetMapping("/tripbookingId/{tripBookingId}")
 	public List<TripBooking> viewAllTripsById(@PathVariable int tripBookingId) {
 		return itbs.viewAllTripsById(tripBookingId);
 	}
