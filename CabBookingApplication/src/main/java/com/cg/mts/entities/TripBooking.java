@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
@@ -21,9 +22,11 @@ public class TripBooking {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int tripBookingId;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@ManyToOne(targetEntity = Customer.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
 	@JoinColumn(name = "customerId", referencedColumnName = "customerId")
 	private Customer customer;
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@ManyToOne(targetEntity = Driver.class, fetch = FetchType.LAZY) 
 	@JoinColumn(name = "driverId", referencedColumnName = "driverId")
 	private Driver driver;

@@ -7,13 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Driver extends AbstractUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int driverId;
 	private String licenseNo;
-
+	@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 	@OneToOne(fetch = FetchType.LAZY)
 	private Cab cab;
 
