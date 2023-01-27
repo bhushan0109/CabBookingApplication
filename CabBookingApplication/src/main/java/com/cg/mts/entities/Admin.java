@@ -11,10 +11,6 @@ public class Admin extends AbstractUser {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int adminId;
 
-	public Admin() {
-
-	}
-
 	public int getAdminId() {
 		return adminId;
 	}
@@ -23,14 +19,14 @@ public class Admin extends AbstractUser {
 		this.adminId = adminId;
 	}
 
-	public Admin(int adminId) {
-		super();
-		this.adminId = adminId;
-	}
-
 	@Override
 	public String toString() {
 		return "Admin [adminId=" + adminId + "]";
 	}
-	
+
+	public Admin() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.cg.mts.entities.TripBooking;
 import com.cg.mts.repository.ITripBookingRepository;
 
-@Service("itbs")
+@Service
 public class ITripBookingServiceImpl implements ITripBookingService {
 
 	@Autowired

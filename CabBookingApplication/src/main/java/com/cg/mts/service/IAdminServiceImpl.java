@@ -4,18 +4,29 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cg.mts.entities.Admin;
+import com.cg.mts.entities.RoleName;
 import com.cg.mts.entities.TripBooking;
+import com.cg.mts.entities.User;
 import com.cg.mts.exception.CustomerNotFoundException;
 import com.cg.mts.repository.IAdminRepository;
+import com.cg.mts.repository.IUserRepository;
 
-@Service("ias")
+@Service
 public class IAdminServiceImpl implements IAdminService {
 
 	@Autowired
 	IAdminRepository aDao;
+	
+	@Autowired
+	private IUserRepository iUserRepository;
+	
+	@Autowired
+	PasswordEncoder encoder;
+
 
 	/**
 	 * @return List<Admin>
@@ -33,8 +44,16 @@ public class IAdminServiceImpl implements IAdminService {
 
 	@Override
 	public Admin insertAdmin(Admin admin) {
-		aDao.saveAndFlush(admin);
-		return admin;
+		Admin saveAndFlush = aDao.saveAndFlush(admin);
+		User user =new User();
+		user.setPassword(encoder.encode(admin.getPassword()));
+		user.setRole(RoleName.ADMIN.name());
+		user.setMobileNumber(admin.getMobileNumber());
+		user.setUserId(saveAndFlush.getAdminId());
+		user.setUsername(admin.getUsername());
+		iUserRepository.save(user);
+		
+		return saveAndFlush;
 	}
 
 	/**

@@ -19,18 +19,22 @@ public class Customer extends AbstractUser {
 		this.customerId = customerId;
 	}
 
-	public Customer() {
+	@Override
+	public String toString() {
+		return "Customer [customerId=" + customerId + "]";
+	}
 
+	public Customer() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public Customer(int customerId) {
 		super();
 		this.customerId = customerId;
 	}
+	
+	
 
-	@Override
-	public String toString() {
-		return "Customer [customerId=" + customerId + "]";
-	}
 
 }

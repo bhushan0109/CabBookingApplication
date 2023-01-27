@@ -1,6 +1,7 @@
 package com.cg.mts.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cg.mts.entities.Driver;
+import com.cg.mts.entities.User;
 import com.cg.mts.exception.DriverNotFoundException;
 import com.cg.mts.exception.InvalidUserOrPasswordException;
+import com.cg.mts.exception.UserAlreadyExistException;
+import com.cg.mts.repository.IUserRepository;
 import com.cg.mts.service.IDriverService;
 import com.cg.mts.util.LoginService;
 
@@ -30,6 +34,8 @@ public class DriverController {
 
 	@Autowired
 	LoginService ls;
+	@Autowired
+	private IUserRepository iUserRepository;
 
 	/**
 	 * validateDriver
@@ -111,10 +117,15 @@ public class DriverController {
 	 * 
 	 * @param driver
 	 * @return List<Driver>
+	 * @throws UserAlreadyExistException 
 	 */
 
 	@PostMapping
-	public List<Driver> insertDriver(@RequestBody Driver driver) {
+	public List<Driver> insertDriver(@RequestBody Driver driver) throws UserAlreadyExistException {
+		Optional<User> findByUsername = iUserRepository.findByUsername(driver.getUsername());
+		if (findByUsername.isPresent()) {
+			throw new UserAlreadyExistException("Admin with given " + driver.getUsername() + " already exist");
+		}
 		return ids.insertDriver(driver);
 	}
 

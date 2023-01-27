@@ -9,7 +9,7 @@ import com.cg.mts.entities.Cab;
 import com.cg.mts.exception.CabNotFoundException;
 import com.cg.mts.repository.ICabRepository;
 
-@Service("iCabService")
+@Service
 public class ICabServiceImpl implements ICabService {
 
 	@Autowired

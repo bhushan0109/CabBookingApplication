@@ -4,16 +4,27 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cg.mts.entities.Driver;
+import com.cg.mts.entities.RoleName;
+import com.cg.mts.entities.User;
 import com.cg.mts.exception.DriverNotFoundException;
 import com.cg.mts.repository.IDriverRepository;
+import com.cg.mts.repository.IUserRepository;
 
-@Service("ids")
+@Service
 public class IDriverServiceImpl implements IDriverService {
 	@Autowired
 	IDriverRepository dDao;
+	
+	@Autowired
+	private IUserRepository iUserRepository;
+	
+	@Autowired
+	PasswordEncoder encoder;
+
 
 	/**
 	 * 
@@ -53,7 +64,15 @@ public class IDriverServiceImpl implements IDriverService {
 
 	@Override
 	public List<Driver> insertDriver(Driver driver) {
-		dDao.saveAndFlush(driver);
+		Driver saveAndFlush = dDao.saveAndFlush(driver);
+		
+		User user =new User();
+		user.setPassword(encoder.encode(driver.getPassword()));
+		user.setRole(RoleName.DRIVER.name());
+		user.setMobileNumber(driver.getMobileNumber());
+		user.setUserId(saveAndFlush.getDriverId());
+		user.setUsername(driver.getUsername());
+		iUserRepository.save(user);
 		return dDao.findAll();
 	}
 

@@ -10,7 +10,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class Driver extends AbstractUser {
+public class Driver {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int driverId;
@@ -20,6 +20,11 @@ public class Driver extends AbstractUser {
 	private Cab cab;
 
 	private float rating;
+	private String username;
+	private String password;
+	private String mobileNumber;
+
+	private String email;
 
 	public Driver() {
 
@@ -65,10 +70,43 @@ public class Driver extends AbstractUser {
 		this.rating = rating;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getMobileNumber() {
+		return mobileNumber;
+	}
+
+	public void setMobileNumber(String mobileNumber) {
+		this.mobileNumber = mobileNumber;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	@Override
 	public String toString() {
 		return "Driver [driverId=" + driverId + ", licenseNo=" + licenseNo + ", cab=" + cab + ", rating=" + rating
-				+ "]";
+				+ ", username=" + username + ", password=" + password + ", mobileNumber=" + mobileNumber + ", email="
+				+ email + "]";
 	}
 	
 }
